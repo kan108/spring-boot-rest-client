@@ -45,7 +45,6 @@ public class CreateObject {
 	
 	private HatApps createObjectHatApps(List<RowData> dataList, AppsInpt appsInpt) throws Exception {
 
-		// HatApps�̃f�[�^���쐬����
 		HatApps hatApps = new HatApps();
 
 		hatApps.setAppsInpt(appsInpt);
@@ -54,7 +53,7 @@ public class CreateObject {
 
 		for (RowData data : dataList) {
 			
-			//�@String
+			//String
 			if ("String".equals(data.getKata())) {
 				Method m1 = clsHatApps.getMethod("set" + firstCharConvUpper(data.getFieldName()), String.class);
 				m1.invoke(hatApps, data.getValue());
@@ -86,7 +85,7 @@ public class CreateObject {
 	
 	private AppsInpt createObjectAppsInpt(List<RowData> dataList) throws Exception {
 
-		// AppsInpt�̃f�[�^���쐬����B
+		
 		AppsInpt appsInpt = new AppsInpt();
 
 		Class clsAppsInpt = appsInpt.getClass();
@@ -170,7 +169,6 @@ public class CreateObject {
 			return Boolean.toString(cell.getBooleanCellValue());
 		case Cell.CELL_TYPE_FORMULA:
 			return cell.getCellFormula();
-		// return cell.getStringCellValue();(���j
 		case Cell.CELL_TYPE_NUMERIC:
 			return Double.toString(cell.getNumericCellValue());
 		case Cell.CELL_TYPE_STRING:
@@ -179,13 +177,18 @@ public class CreateObject {
 		return "";// CELL_TYPE_BLANK,CELL_TYPE_ERROR
 	}
 
+	/**
+	 * 先頭文字を大文字に変更
+	 * @param s
+	 * @return
+	 */
 	public String firstCharConvUpper(String s) {
 		
 		if (s == null) {
 			return null;
 		}
 		
-		return s.substring(0, 1).toUpperCase() + s.substring(1).toLowerCase();
+		return s.substring(0, 1).toUpperCase() + s.substring(1);
 	}
 	
 }
