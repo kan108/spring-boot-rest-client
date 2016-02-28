@@ -5,6 +5,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.RestTemplate;
 
 import com.example.test.dto.HatApps;
@@ -21,7 +22,19 @@ public class SpringBootRestClientApplication implements CommandLineRunner {
 	@Override
 	public void run(String... strings) throws Exception {
 		RestTemplate restTemplate = new RestTemplate();
-		HatApps hatApps = restTemplate.getForObject("http://localhost:8080/api/sample", HatApps.class);
+		
+		HatApps hatApps = new HatApps();
+		hatApps.setString1("Str1");
+		
+		
+		HatApps responseEntity =
+		        restTemplate.postForObject("http://localhost:8080/api/sample", hatApps, HatApps.class);
+		
+		
+		HatApps result = responseEntity;
+		
+		System.out.println("処理結果：" + result.toString());
+
 		
 	}
 
